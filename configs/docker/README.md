@@ -22,16 +22,29 @@ To generate this message, Docker took the following steps:
 - 3_clone_ros_docker_images.sh  
 - 4_build_humble_desktop_container.sh  
 
-- 5_run_ROS2_Humble_Docker_image.sh
+- 5_test_ros_docker.md  (reproduced here)
+
+test: docker run hello-world
+
+# Create ros2ws/src directory
+mkdir -p ~/pi5desk/ros2ws/src
+cd ~/pi5desk/ros2ws
+
+# start Docker mounting ros2ws
+docker run -it -v ~/pi5desk/ros2ws:/ros2ws r2hd
+
+   cd /ros2ws
+   ros2 pkg list
+   ros2 run demo_nodes_cpp listener & ros2 run demo_nodes_cpp talker
+   cntrl-c
+   ps -ef | grep ros
+   kill x y
+   exit
 
 
-- test: docker run hello-world
 
-"Mount" current working directory to docker environment when launching Docker:
-```
--v `pwd`:`pwd` \
-```
-(if Windows replace pwd with %cd% )
+
+OTHER WAYS TO RUN:
 
 Keep a ROS Docker alive - start in detached mode
 - docker run -dt --name robot_env --restart unless-stopped r2hd
