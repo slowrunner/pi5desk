@@ -2,7 +2,7 @@
 
 
 while true; \
-do echo -e "\n********** ROS2 GoPiGo3 MONITOR ******************************"; \
+do echo -e "\n********** ROS2 Pi5DESK MONITOR ******************************"; \
 echo -n `date +"%A %D"`; \
 echo ""; \
 uptime; \
