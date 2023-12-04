@@ -1,0 +1,22 @@
+2023-11-28 17:43|------------ boot ------------
+2023-11-28 17:49|------------ boot ------------
+2023-11-28 17:55|[logMaintenance.py.main]** crontab setup for life logging **
+2023-11-28 18:46|lifelogger.dEmain execution: 0.95
+2023-11-28 18:49|------------ boot ------------
+2023-11-28 18:53|------------ boot ------------
+2023-11-28 18:55|------------ boot ------------
+2023-11-28 19:31|lifelogger.dEmain execution: 0.60
+2023-11-28 19:33|[logMaintenance.py.main]** Setup ip_feedback **
+2023-11-28 19:42|------------ boot ------------
+2023-11-28 19:45|lifelogger.dEmain execution: 2.5
+2023-11-28 22:10|------------ boot ------------
+2023-12-01 08:31|lifelogger.dEmain execution: 58.35
+2023-12-01 08:33|[logMaintenance.py.main]** was running on Apple iPad USB-C supply, switching **
+2023-12-01 08:36|------------ boot ------------
+2023-12-01 09:03|lifelogger.dEmain execution: 0.45
+2023-12-01 09:05|------------ boot ------------
+2023-12-04 14:46|[logMaintenance.py.main]** Going down to add power meter **
+2023-12-04 14:47|lifelogger.dEmain execution: 77.70
+2023-12-04 14:49|------------ boot ------------
+2023-12-04 16:29|[logMaintenance.py.main]** async_slam uses 1% cpu 500MB 3W **
+2023-12-04 17:43|lifelogger.dEmain execution: 2.90
