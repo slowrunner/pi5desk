@@ -61,3 +61,34 @@ docker start robot_env
 Check if container alive:
 docker container ls -a
 
+## CLEAN UP AFTER A REBUILD
+
+```
+ $ docker image list
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+r2hdp        latest    a32732c7e869   2 hours ago   3.41GB
+<none>       <none>    beceb7b58a39   2 days ago    3.37GB
+r2hd         latest    20eb98163bc8   2 days ago    3.23GB
+
+
+pi@RPi5DESK:~/pi5desk/configs/docker $ docker image rm beceb7b58a39
+Error response from daemon: conflict: unable to delete beceb7b58a39 (must be forced) - image is being used by stopped container 9b9ae547247a
+
+pi@RPi5DESK:~/pi5desk/configs/docker $ docker container list -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+9b9ae547247a   r2hdp    ...
+
+pi@RPi5DESK:~/pi5desk/configs/docker $ docker image rm -f beceb7b58a39
+Deleted: sha256:beceb7b58a39f7cd26fd32bbbc222d7fe9b591682a40a07ff9bef9be426d92d0
+
+# or use docker container prune to remove all stopped containers
+pi@RPi5DESK:~/pi5desk/configs/docker $ docker container rm -f 9b9ae547247a
+9b9ae547247a
+
+pi@RPi5DESK:~/pi5desk/configs/docker $ docker image list
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+r2hdp        latest    a32732c7e869   2 hours ago   3.41GB
+r2hd         latest    20eb98163bc8   2 days ago    3.23GB
+
+
+```

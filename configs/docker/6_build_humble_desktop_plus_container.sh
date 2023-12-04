@@ -8,5 +8,5 @@
 # popd
 
 
-# build a ros humble desktop plus navigation tagged r2hdp
-sudo docker build . -t r2hdp -f docker_files/ros2_humble_desktop_plus_nav_dockerfile
+# build a ros humble desktop plus navigation, slam-toolbox, localization tagged r2hdp
+sudo docker build . -t r2hdp -f docker_files/ros2_humble_desktop_plus_dockerfile

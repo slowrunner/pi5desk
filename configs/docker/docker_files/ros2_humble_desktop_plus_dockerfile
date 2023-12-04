@@ -6,6 +6,7 @@ FROM ros:humble-ros-base-jammy
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-desktop=0.10.0-1* \
     ros-humble-navigation2 ros-humble-nav2-bringup \
+    ros-humble-slam-toolbox ros-humble-robot-localization \
     ros-humble-xacro \
     python3-colcon-common-extensions \
     ros-humble-tf-transformations python3-rosdep2 \
