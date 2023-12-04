@@ -12,3 +12,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-tf-transformations python3-rosdep2 \
     && rm -rf /var/lib/apt/lists/*
 
+# Because this is running on PiOS setup user as pi instead of ubuntu
+RUN useradd -Ms /bin/bash pi
+USER pi:pi
