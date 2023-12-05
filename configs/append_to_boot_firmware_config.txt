@@ -1,0 +1,10 @@
+#!/bin/bash
+echo -e "/n*** Check for  'usb_max_current_enable=1' at end of"
+echo -e "      /boot/firmware/config.txt:"
+tail /boot/firmware/config.txt
+echo -e "/n*** If not present, uncomment lines in file and rerun"
+
+# uncomment following lines if not present
+# sudo echo -e "usb_max_current_enable=1" >> /boot/firmware/config.txt
+# echo -e "/n*** Final /boot/firmware/config.txt:"
+# tail /boot/firmware/config.txt
