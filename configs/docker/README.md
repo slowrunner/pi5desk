@@ -46,6 +46,12 @@ docker run -it -v ~/pi5desk/ros2ws:/ros2ws r2hd
 
 OTHER WAYS TO RUN:
 
+# Start ROS2 Humble Desktop "Plus" with network to contact other nodes over WiFi
+# --rm removes container when docker is terminated
+```
+docker run -it --net=host  -v /home/pi:/home/pi -w /home/pi/pi5desk/ros2ws --rm r2hdp
+```
+
 Keep a ROS Docker alive - start in detached mode
 - docker run -dt --name robot_env --restart unless-stopped r2hd
 
