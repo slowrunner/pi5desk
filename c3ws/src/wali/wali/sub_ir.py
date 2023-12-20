@@ -104,7 +104,7 @@ def main(args=None):
     	'''
     	print("Done")
     	IR_subscriber.destroy_node()
-    	rclpy.shutdown()
+    	# rclpy.shutdown()
 
 
 if __name__ == '__main__':
