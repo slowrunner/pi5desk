@@ -9,11 +9,28 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-slam-toolbox ros-humble-robot-localization \
     ros-humble-xacro \
     ros-humble-irobot-create-msgs \
+    ros-humble-teleop-twist-joy ros-humble-teleop-twist-keyboard \
     python3-colcon-common-extensions \
     ros-humble-tf-transformations python3-rosdep2 \
-    nano \
+    nano joystick\
+    python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
+
 # Because this is running on PiOS setup user as pi instead of ubuntu
-RUN useradd -Ms /bin/bash pi
+# RUN useradd -Ms /bin/bash pi
+# evdev needs /home/pi for install
+RUN useradd -s /bin/bash pi
+RUN echo 'pi:pi' | chpasswd 
+RUN adduser pi sudo
+RUN echo '%pi ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# files to copy must be in the docker tree
+COPY snes_slow.config.yaml /opt/ros/humble/share/teleop_twist_joy/config/
+
 USER pi:pi
+
+# python access to joystick
+RUN sudo pip3 install evdev
+
+# NOTE: joystick access will require docker running in --privileged mode

@@ -27,13 +27,13 @@ To generate this message, Docker took the following steps:
 test: docker run hello-world  
 
 # Create ros2ws/src directory  
-mkdir -p ~/pi5desk/ros2ws/src  
-cd ~/pi5desk/ros2ws  
+mkdir -p ~/pi5desk/c3ws/src  
+cd ~/pi5desk/c3ws
 
 # start Docker mounting ros2ws  
-docker run -it -v ~/pi5desk/ros2ws:/ros2ws r2hd  
+docker run -it -v ~/pi5desk/c3ws:/c3ws r2hd  
 
-   cd /ros2ws  
+   cd /c3ws  
    ros2 pkg list  
    ros2 run demo_nodes_cpp listener & ros2 run demo_nodes_cpp talker  
    cntrl-c  
@@ -42,30 +42,18 @@ docker run -it -v ~/pi5desk/ros2ws:/ros2ws r2hd
    exit  
 
 
+- 6_build_humble_desktop_plus_container.sh  
 
+This add all the packages and configuration needed specifically for Wali
 
-OTHER WAYS TO RUN:  
+Run with:  ./run_docker_r2hdp.sh  
 
-## Start ROS2 Humble Desktop "Plus" with network to contact other nodes over WiFi    
-   --rm removes container when docker is terminated  
 ```
-docker run -it --net=host  -v /home/pi:/home/pi -w /home/pi/pi5desk/ros2ws --rm r2hdp  
+docker run -it --net=host  -v /home/pi:/home/pi -v /dev/input:/dev/input \
+ -v /dev/bus/usb:/dev/bus/usb  -w /home/pi/pi5desk/c3ws --privileged --rm r2hdp
 ```
 
-Keep a ROS Docker alive - start in detached mode  
-- docker run -dt --name robot_env --restart unless-stopped r2hd  
 
-Connect or reconnect to the running Docker environment:  
--docker exec -it robot_env bash  
-
-Shut the detached Docker environment down:  
--docker stop robot_env && docker rm robot_env  
-
-Reuse last container if stopped or docker restarted or computer rebooted:  
-docker start robot_env  
-
-Check if container alive:  
-docker container ls -a  
 
 ## CLEAN UP AFTER A REBUILD  
 
@@ -97,4 +85,31 @@ r2hdp        latest    a32732c7e869   2 hours ago   3.41GB
 r2hd         latest    20eb98163bc8   2 days ago    3.23GB  
 
 
+```
+
+
+## Joystick access from Docker  
+
+- Required apt packages  ```RUN apt install -y xxx yyy```  
+  - joystick  
+  - python3-pip  
+
+- Since running on PiOS, evdev will need /home/pi/ to exist  
+  - ```RUN useradd -s /bin/bash pi``` will create /home/pi/  
+
+- Required python packages  
+  - evdev  ```RUN sudo pip3 install evdev```  
+
+- Copy gamepad config file into container  
+
+```
+# files to copy must be in the docker tree
+COPY snes_slow.config.yaml /opt/ros/humble/share/teleop_twist_joy/config/
+```
+
+- Run in --privileged mode  
+
+```
+docker run -it --net=host  -v /home/pi:/home/pi -v /dev/input:/dev/input \
+ -v /dev/bus/usb:/dev/bus/usb  -w /home/pi/pi5desk/c3ws --privileged --rm r2hdp
 ```
