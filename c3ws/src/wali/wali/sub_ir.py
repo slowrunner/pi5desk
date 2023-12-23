@@ -50,6 +50,10 @@ class IRSubscriber(Node):
             IrIntensityVector, namespace + '/ir_intensity', self.listener_callback,
             qos_profile_sensor_data)
 
+        # rolling counter (0-61) of ir_intensity msgs received from 62 Hz topic
+        self.ir_intensity_counter = 0
+
+
     def listener_callback(self, msg:IrIntensityVector):
         '''
         The subscriber's callback listens and as soon as it receives the message,
@@ -59,7 +63,12 @@ class IRSubscriber(Node):
         '''
         # print('Now listening to IR sensor readings it hears...')
 
-        self.printIR(msg)
+        if (self.ir_intensity_counter == 0):  # Print values each time counter is 0
+          self.printIR(msg)
+
+        # increment/roll msg counter approximately once each second for 62 Hz topic
+        self.ir_intensity_counter = (self.ir_intensity_counter + 1) % 62
+
 
     def printIR(self, msg):
         '''
@@ -70,12 +79,13 @@ class IRSubscriber(Node):
         The msg is returned from our topic '/ir_intensity.'
         To get components of a message, use the '.' dot operator. 
         '''
+
         labels = ["side_left", "left", "front_left", "front_center_left", "front_center_right", "front_right", "right"]
         label_idx = 0
         print('\nCreate3 IR sensor:')
         for reading in msg.readings: 
         	val = reading.value
-        	dist = create3_ir_dist.dist_ir_reading(val)
+        	dist = create3_ir_dist.dist_ir_reading(label_idx,val)
         	label = labels[label_idx]
         	print("{:<20} intensity: {:>5} dist: {:>-8.3f}m".format(label,str(val),dist) )
         	label_idx += 1

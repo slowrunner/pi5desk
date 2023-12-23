@@ -4,7 +4,7 @@ echo -e "\n** SOURCE .bashrc"
 . ~/.bashrc
 
 echo -e "** CHANGE to wali_desk/c3ws"
-cd ~/wali_desk/c3ws
+cd ~/pi5desk/c3ws
 
 echo -e "** INSTALL ANY ROS DEPENDENCIES **"
 rosdep install -i --from-path src
