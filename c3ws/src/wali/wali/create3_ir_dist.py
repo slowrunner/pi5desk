@@ -11,22 +11,36 @@
 import numpy as np
 
 
-# Approximate distance within range of 1cm to 60cm (less or more undefined)
-DISTANCES = [0.600, 0.500, 0.400, 0.300, 0.200, 0.100, 0.050, 0.025, 0.010]
+LABELS = ["side_left", "left", "front_left", "front_center_left", \
+              "front_center_right", "front_right", "right"]
 
-# Readings are average of 20 readings at distances
-READINGS  = [8    , 13   , 38   , 76   , 151  , 580  , 2044 , 3772 , 3798 ]
+# Tested with front surface of white baseboard 60mm floor to edge of dado
 
+# Approximate distance from wall to bumper at range of 1.5cm to 40cm
+DISTANCES = [ 0.400, 0.300, 0.200, 0.110, 0.050, 0.025, 0.015]
 
-def dist_ir_reading(reading):
-      UNDEF = -99.0
-      dist = np.interp(reading,READINGS,DISTANCES, right=UNDEF, left=UNDEF)
+# Note Distance base_link to Bumper is 0.171 meter
+
+# Average Reading Values For Distances
+READINGS  = [
+             [14   , 19   ,  73   , 336  , 1148  , 2469 , 3111],
+             [21   , 35   ,  74   , 322  , 1252  , 3090 , 3481],
+             [44   , 53   , 112   , 366  , 1162  , 2639 , 3412],
+             [23   , 42   , 126   , 451  , 1385  , 2843 , 3514],
+             [30   , 44   ,  94   , 353  , 1281  , 3118 , 3769],
+             [24   , 38   ,  81   , 276  , 1176  , 2972 , 3745],
+             [21   , 35   ,  88   , 410  , 1635  , 3596 , 3784],
+            ]
+
+def dist_ir_reading(sensor_idx, reading):
+      UNDEF = -99.999
+      dist = np.interp(reading,READINGS[sensor_idx],DISTANCES, right=UNDEF, left=UNDEF)
       return dist
 
 def main():
 
   for reading in [0, 8, 10, 13, 25, 38, 57, 76, 114, 151, 366, 580, 1312, 2044, 2908, 3772, 3785, 3798, 4500] :
-    print("reading: {}  dist: {:.3f} m".format(reading, dist_ir_reading(reading)))
+    print("reading: {}  dist: {:.3f} m".format(reading, dist_ir_reading(4,reading)))
 
 
 if __name__ == "__main__":
