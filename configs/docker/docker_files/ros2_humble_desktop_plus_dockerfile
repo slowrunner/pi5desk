@@ -27,6 +27,7 @@ RUN echo '%pi ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # files to copy must be in the docker tree
 COPY snes_slow.config.yaml /opt/ros/humble/share/teleop_twist_joy/config/
+COPY F710.config.yaml /opt/ros/humble/share/teleop_twist_joy/config/
 
 USER pi:pi
 
